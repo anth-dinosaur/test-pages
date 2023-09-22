@@ -4,3 +4,27 @@
 - name: "Jane Doe"
   age: 25
   occupation: "Designer"
+- name: "Mike Jordan"
+  age: 35
+  occupation: "Athlete"
+- name: "Sara Conner"
+  age: 28
+  occupation: "Developer"
+- name: "Tom Cruise"
+  age: 40
+  occupation: "Actor"
+- name: "Emma Watson"
+  age: 32
+  occupation: "Actor"
+- name: "Sam Wilson"
+  age: 29
+  occupation: "Designer"
+- name: "Chris Evans"
+  age: 38
+  occupation: "Athlete"
+- name: "Scarlett Johansson"
+  age: 37
+  occupation: "Actor"
+- name: "Robert Downey Jr."
+  age: 57
+  occupation: "Actor"
