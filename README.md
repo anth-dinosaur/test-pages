@@ -8,7 +8,7 @@
 
 {% for occupation in unique_occupations %}
 ## {{ occupation }}
-{% for person in site.data.mydata %}
+{% for person in site.data.testdata %}
 {% if person.occupation == occupation %}
 - **Name:** {{ person.name }}
 - **Age:** {{ person.age }}
