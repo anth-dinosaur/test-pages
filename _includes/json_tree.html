@@ -1,6 +1,6 @@
 <div id="json-tree"></div>
 <script>
-  var jsonData = {{ site.data.tree | jsonify }};
+  var jsonData = {{ include.file | jsonify }};
   
   function createTree(container, data) {
     var ul = document.createElement('ul');
