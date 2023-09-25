@@ -1,4 +1,38 @@
-<div id="json-tree"></div>
+<style>
+  .json-tree ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .json-tree li {
+    cursor: pointer;
+    margin: 0;
+    padding: 0 0 0 1em;
+    text-indent: -1em;
+  }
+  
+  .json-tree li:before {
+    content: '▶';
+    display: inline-block;
+    margin-right: 6px;
+  }
+  
+  .json-tree .expanded li:before {
+    content: '▼';
+  }
+  
+  .json-tree ul ul {
+    display: none;
+  }
+  
+  .json-tree .expanded > ul {
+    display: block;
+  }
+</style>
+
+<div id="json-tree" class="json-tree"></div>
+
 <script>
   var jsonData = {{ include.file | jsonify }};
   
@@ -6,21 +40,28 @@
     var ul = document.createElement('ul');
     container.appendChild(ul);
     
+    var li = document.createElement('li');
+    li.textContent = data.name;
+    ul.appendChild(li);
+    
     if (data.children && data.children.length > 0) {
-      var li = document.createElement('li');
-      li.textContent = data.name;
-      ul.appendChild(li);
-      
       var subUl = document.createElement('ul');
       li.appendChild(subUl);
       
       data.children.forEach(function(child) {
         createTree(subUl, child);
       });
-    } else {
-      var li = document.createElement('li');
-      li.textContent = data.name;
-      ul.appendChild(li);
+      
+      li.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if(subUl.style.display === 'none' || subUl.style.display === '') {
+          subUl.style.display = 'block';
+          li.classList.add('expanded');
+        } else {
+          subUl.style.display = 'none';
+          li.classList.remove('expanded');
+        }
+      });
     }
   }
   
