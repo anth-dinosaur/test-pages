@@ -44,31 +44,33 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var jsonData = {{ include.file | jsonify }};
-
+    
     function createTree(container, data) {
       var ul = document.createElement('ul');
       container.appendChild(ul);
-
+      
       for (var key in data) {
         var li = document.createElement('li');
         var value = data[key];
-
+        
         if (typeof value === 'object' && value !== null) {
           li.textContent = key;
-          li.addEventListener('click', function(e) {
-            e.stopPropagation();
-            li.classList.toggle('expanded');
-          });
+          li.addEventListener('click', (function(currentLi) {
+            return function(e) {
+              e.stopPropagation();
+              currentLi.classList.toggle('expanded');
+            };
+          })(li));
           createTree(li, value);
         } else {
           li.textContent = key + ': ' + value;
           li.classList.add('leaf');
         }
-
+        
         ul.appendChild(li);
       }
     }
-
+    
     createTree(document.getElementById('json-tree'), jsonData);
   });
 </script>
