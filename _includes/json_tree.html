@@ -1,24 +1,25 @@
 <style>
   .json-tree ul {
-    list-style-type: none;
     margin: 0;
     padding: 0;
   }
 
   .json-tree li {
+    position: relative;
     cursor: pointer;
+    list-style-type: none;
     margin: 0;
-    padding: 0 0 0 1em;
-    text-indent: -1em;
+    padding: 0 0 0 20px;
   }
 
-  .json-tree ul:before {
+  .json-tree li:before {
     content: '▶';
-    display: inline-block;
+    position: absolute;
+    left: 0;
     margin-right: 6px;
   }
 
-  .json-tree ul.expanded:before {
+  .json-tree li.expanded:before {
     content: '▼';
   }
 
@@ -26,7 +27,7 @@
     display: none;
   }
 
-  .json-tree ul.expanded > ul {
+  .json-tree li.expanded > ul {
     display: block;
   }
 
@@ -58,7 +59,7 @@
           li.addEventListener('click', (function(currentLi, currentUl) {
             return function(e) {
               e.stopPropagation();
-              currentUl.classList.toggle('expanded');
+              currentLi.classList.toggle('expanded');
             };
           })(li, ul));
           createTree(li, value);
