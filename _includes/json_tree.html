@@ -12,13 +12,13 @@
     text-indent: -1em;
   }
 
-  .json-tree li:before {
+  .json-tree ul:before {
     content: '▶';
     display: inline-block;
     margin-right: 6px;
   }
 
-  .json-tree .expanded li:before {
+  .json-tree ul.expanded:before {
     content: '▼';
   }
 
@@ -26,7 +26,7 @@
     display: none;
   }
 
-  .json-tree .expanded > ul {
+  .json-tree ul.expanded > ul {
     display: block;
   }
 
@@ -44,33 +44,33 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var jsonData = {{ include.file | jsonify }};
-    
+
     function createTree(container, data) {
       var ul = document.createElement('ul');
       container.appendChild(ul);
-      
+
       for (var key in data) {
         var li = document.createElement('li');
         var value = data[key];
-        
+
         if (typeof value === 'object' && value !== null) {
           li.textContent = key;
-          li.addEventListener('click', (function(currentLi) {
+          li.addEventListener('click', (function(currentLi, currentUl) {
             return function(e) {
               e.stopPropagation();
-              currentLi.classList.toggle('expanded');
+              currentUl.classList.toggle('expanded');
             };
-          })(li));
+          })(li, ul));
           createTree(li, value);
         } else {
           li.textContent = key + ': ' + value;
           li.classList.add('leaf');
         }
-        
+
         ul.appendChild(li);
       }
     }
-    
+
     createTree(document.getElementById('json-tree'), jsonData);
   });
 </script>
