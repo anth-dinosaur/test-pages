@@ -1,0 +1,28 @@
+<div id="json-tree"></div>
+<script>
+  var jsonData = {{ site.data.tree | jsonify }};
+  
+  function createTree(container, data) {
+    var ul = document.createElement('ul');
+    container.appendChild(ul);
+    
+    if (data.children && data.children.length > 0) {
+      var li = document.createElement('li');
+      li.textContent = data.name;
+      ul.appendChild(li);
+      
+      var subUl = document.createElement('ul');
+      li.appendChild(subUl);
+      
+      data.children.forEach(function(child) {
+        createTree(subUl, child);
+      });
+    } else {
+      var li = document.createElement('li');
+      li.textContent = data.name;
+      ul.appendChild(li);
+    }
+  }
+  
+  createTree(document.getElementById('json-tree'), jsonData);
+</script>
