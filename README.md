@@ -1,5 +1,15 @@
 # Test Page
 
+> [!NOTE]  
+> Highlights information that users should take into account, even when skimming.
+
+> [!IMPORTANT]  
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]  
+> Critical content demanding immediate user attention due to potential risks.
+
+
 ## Occupations
 {% assign unique_occupations = site.data.testdata | map: "occupation" | uniq %}
 {% for occupation in unique_occupations %}
